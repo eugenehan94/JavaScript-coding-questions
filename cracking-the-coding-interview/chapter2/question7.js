@@ -122,36 +122,100 @@ function getIntesectionNode(head1, head2) {
 }
 
 let newNode = new Node();
- 
+
 let headOne = new Node();
 headOne.data = 10;
- 
- 
+
 let headTwo = new Node();
 headTwo.data = 3;
- 
+
 newNode = new Node();
 newNode.data = 6;
 headTwo.next = newNode;
- 
+
 newNode = new Node();
 newNode.data = 9;
 headTwo.next.next = newNode;
- 
+
 newNode = new Node();
 newNode.data = 15;
 headOne.next = newNode;
 headTwo.next.next.next = newNode;
- 
+
 newNode = new Node();
 newNode.data = 30;
 headOne.next.next = newNode;
- 
+
 headOne.next.next.next = null;
- 
+
 let intersectionPoint = getIntesectionNode(headOne, headTwo);
- 
-if (!intersectionPoint)
-    console.log(" No Intersection Point");
-else
-    console.log("Intersection Point: ", intersectionPoint.data);
+
+if (!intersectionPoint) console.log(" No Intersection Point");
+else console.log("Intersection Point: ", intersectionPoint.data);
+
+console.log("-----------Approach 3 (Website) ----------------");
+/*
+Basically, we need to find a common node of two linked lists. So, 
+we store all the nodes of the first list in a hash set and then 
+iterate over second list checking if the node is present in the set. 
+If we find a node which is present in the hash set, we return the node.
+
+Step-by-step approach:
+Create an empty hash set.
+Traverse the first linked list and insert all nodes’ addresses 
+in the hash set.
+Traverse the second list. For every node check if it is present 
+in the hash set. If we find a node in the hash set, return the node.
+
+Time complexity: O(n) where n is the length of the longer list. 
+This is because we need to traverse both of the linked lists in 
+order to find the intersection point.
+Auxiliary: O(n), because we are using unordered set.
+*/
+
+function Print(n) {
+  let cur = n;
+  while (cur !== null) {
+    console.log(cur.data + " ");
+    cur = cur.next;
+  }
+}
+function MegeNode(n1, n2){
+  let hs = new Set();
+
+  while(n1 !== null){
+    hs.add(n1);
+    n1 = n1.next;
+  }
+  while (n2 !== null){
+    if (hs.has(n2)){
+      return n2;
+    }
+    n2= n2.next;
+  }
+
+}
+
+let n1 = new Node(1);
+n1.next = new Node(2);
+n1.next.next = new Node(3);
+n1.next.next.next = new Node(4);
+n1.next.next.next.next = new Node(5);
+n1.next.next.next.next.next = new Node(6);
+n1.next.next.next.next.next.next = new Node(7);
+
+let n2 = new Node(10);
+n2.next = new Node(9);
+n2.next.next = new Node(8);
+n2.next.next.next = n1.next.next.next;
+
+// Print(n1);
+// Print(n2);
+
+console.log(MegeNode(n1,n2).data)
+
+console.log("-------------Approach 4 ----------------")
+
+/*
+
+*/
