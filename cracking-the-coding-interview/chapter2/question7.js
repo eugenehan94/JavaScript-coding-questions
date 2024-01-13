@@ -214,8 +214,54 @@ n2.next.next.next = n1.next.next.next;
 
 console.log(MegeNode(n1,n2).data)
 
-console.log("-------------Approach 4 ----------------")
+console.log("-------------Approach 4 (Textbook) ----------------")
 
 /*
 
 */
+
+function findIntersection(list1, list2){
+  if (list1 === null || list2 === null){
+    return null;
+  }
+
+  // Get tail and sizes
+  let result1 = getTailAndSize(list1)
+  let result2 = getTailAndSize(list2);
+  console.log("result1: ", result1)
+  console.log("result2: ", result2)
+
+  // If different tail nodes, then there's no intersection
+  if(result1.tail !== result2.tail){
+    return null;
+  }
+
+  // Set pointers to the start of each linked list.
+  let shorter = result1.size < result2.size ? list1 : list2;
+  let longer = result1.size 
+}
+
+
+function getTailAndSize(list){
+  if(list === null){
+    return null;
+  }
+  let size = 1;
+  let current = list;
+
+  while(current.next !== null){
+    size++;
+    current = current.next;
+  }
+  return new Result(current, size)
+}
+
+class Result {
+  constructor(tail, size){
+    this.tail = tail;
+    this.size = size;
+
+  }
+}
+
+console.log(findIntersection(n1, n2))
