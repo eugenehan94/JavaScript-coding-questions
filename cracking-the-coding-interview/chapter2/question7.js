@@ -180,20 +180,19 @@ function Print(n) {
     cur = cur.next;
   }
 }
-function MegeNode(n1, n2){
+function MegeNode(n1, n2) {
   let hs = new Set();
 
-  while(n1 !== null){
+  while (n1 !== null) {
     hs.add(n1);
     n1 = n1.next;
   }
-  while (n2 !== null){
-    if (hs.has(n2)){
+  while (n2 !== null) {
+    if (hs.has(n2)) {
       return n2;
     }
-    n2= n2.next;
+    n2 = n2.next;
   }
-
 }
 
 let n1 = new Node(1);
@@ -212,56 +211,72 @@ n2.next.next.next = n1.next.next.next;
 // Print(n1);
 // Print(n2);
 
-console.log(MegeNode(n1,n2).data)
+console.log(MegeNode(n1, n2).data);
 
-console.log("-------------Approach 4 (Textbook) ----------------")
+console.log("-------------Approach 4 (Textbook) ----------------");
 
 /*
 
 */
 
-function findIntersection(list1, list2){
-  if (list1 === null || list2 === null){
+function findIntersection(list1, list2) {
+  if (list1 === null || list2 === null) {
     return null;
   }
 
   // Get tail and sizes
-  let result1 = getTailAndSize(list1)
+  let result1 = getTailAndSize(list1);
   let result2 = getTailAndSize(list2);
-  console.log("result1: ", result1)
-  console.log("result2: ", result2)
 
   // If different tail nodes, then there's no intersection
-  if(result1.tail !== result2.tail){
+  if (result1.tail !== result2.tail) {
     return null;
   }
 
   // Set pointers to the start of each linked list.
   let shorter = result1.size < result2.size ? list1 : list2;
-  let longer = result1.size 
+  let longer = result1.size < result2.size ? list2 : list1;
+
+  // Advance the pointer for the longer linked list by difference in lengths
+  longer = getKthNode(longer, Math.abs(result1.size - result2.size));
+
+  // Move both pointers until you have a collision
+  while (shorter !== longer) {
+    shorter = shorter.next;
+    longer = longer.next;
+  }
+  //Return either one
+  return longer;
 }
 
+function getKthNode(head, k) {
+  let current = head;
+  while (k > 0 && current !== null) {
+    current = current.next;
+    k--;
+  }
+  return current;
+}
 
-function getTailAndSize(list){
-  if(list === null){
+function getTailAndSize(list) {
+  if (list === null) {
     return null;
   }
   let size = 1;
   let current = list;
 
-  while(current.next !== null){
+  while (current.next !== null) {
     size++;
     current = current.next;
   }
-  return new Result(current, size)
+  return new Result(current, size);
 }
 
 class Result {
-  constructor(tail, size){
+  constructor(tail, size) {
     this.tail = tail;
     this.size = size;
-
   }
 }
 
-console.log(findIntersection(n1, n2))
+console.log(findIntersection(n1, n2));
