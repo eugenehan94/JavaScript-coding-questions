@@ -19,20 +19,6 @@ class Node {
   }
 }
 
-const myAttempt = (list) => {
-
-  /*
-  
-  */
-
-  let set = new Set();
-
-  set.add(list.next);
-  console.log("set: ", set)
-
-}
-
-
 let test = new Node("A");
 test.next = new Node("B");
 test.next.next = new Node("C");
@@ -40,4 +26,13 @@ test.next.next.next = new Node("D");
 test.next.next.next.next = new Node("E");
 test.next.next.next.next.next = test.next.next;
 
-console.log(myAttempt(test));
+
+console.log("------Approach 1 (Website) ---------")
+
+/*
+1. If a loop is found, initialize a slow pointer to head, let fast pointer be at its position. 
+2. Move both slow and fast pointers one node at a time. 
+3. The point at which they meet is the start of the loop.
+*/
+
+
