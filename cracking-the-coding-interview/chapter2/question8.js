@@ -36,3 +36,21 @@ console.log("------Approach 1 (Website) ---------")
 */
 
 
+function detectAndRemove(head) {
+
+  // If list is empty or has only one node - no loop
+  if (head === null || head.next === null){
+    return null;
+  }
+
+  let slow = head;
+  let fast = head;
+
+  // Move slow and fast 1 and 2 steps ahead respectively
+  slow = slow.next;
+  fast = fast.next.next;
+
+  // Search for loop using slow and fast pointers
+  
+
+}
