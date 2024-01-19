@@ -119,10 +119,8 @@ function detectLoop(head) {
     // Store the pointer to the next node in order to get to it
     // in the next step
     next = head.next;
-
     // Make next pointer to temp
     head.next = temp;
-
     // Get the next node in the list
     head = next;
   }
@@ -130,3 +128,16 @@ function detectLoop(head) {
 }
 
 console.log(detectLoop(test));
+
+
+console.log("----------Approach 3 (Website)----------------")
+
+/*
+We can also use the concept of hashing in order to detect the first node 
+of the loop. The idea is simple just iterate over the entire linked list 
+and store node addresses in a set(C++ STL) one by one, while adding the 
+node address into the set check if it already contains that particular 
+node address if not then add node address to set if it is already present 
+in the set then the current node is the first node of the loop.
+
+*/
