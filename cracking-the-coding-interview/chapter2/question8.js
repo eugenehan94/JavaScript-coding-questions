@@ -141,3 +141,8 @@ node address if not then add node address to set if it is already present
 in the set then the current node is the first node of the loop.
 
 */
+
+function detectCycle(A){
+  // declare map to store node address
+  let uset = new Set();
+}
