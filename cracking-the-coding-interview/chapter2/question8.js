@@ -145,4 +145,15 @@ in the set then the current node is the first node of the loop.
 function detectCycle(A){
   // declare map to store node address
   let uset = new Set();
+
+  let ptr = A;
+
+  // Default consider that no cycle is present
+  while (ptr !== null){
+    // checking if address is already present in map
+    if (uset.has(ptr)){
+      return ptr
+    }
+    
+  }
 }
