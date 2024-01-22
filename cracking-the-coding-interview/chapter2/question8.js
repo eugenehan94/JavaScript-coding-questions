@@ -129,8 +129,7 @@ function detectLoop(head) {
 
 console.log(detectLoop(test));
 
-
-console.log("----------Approach 3 (Website)----------------")
+console.log("----------Approach 3 (Website)----------------");
 
 /*
 We can also use the concept of hashing in order to detect the first node 
@@ -142,18 +141,66 @@ in the set then the current node is the first node of the loop.
 
 */
 
-function detectCycle(A){
+let test2 = new Node("A");
+test2.next = new Node("B");
+test2.next.next = new Node("C");
+test2.next.next.next = new Node("D");
+test2.next.next.next.next = new Node("E");
+test2.next.next.next.next.next = test2.next.next;
+
+function detectCycle(A) {
   // declare map to store node address
   let uset = new Set();
 
   let ptr = A;
-
   // Default consider that no cycle is present
-  while (ptr !== null){
+  while (ptr !== null) {
     // checking if address is already present in map
-    if (uset.has(ptr)){
-      return ptr
+    if (uset.has(ptr)) {
+      return ptr;
     }
-    
+    // if address not present then insert into the set
+    else {
+      uset.add(ptr);
+    }
+    ptr = ptr.next;
   }
+  return null;
 }
+
+console.log(detectCycle(test2));
+
+console.log("---------Approach 4 (textbook) ------------");
+
+function FindBeginning(head) {
+
+  let slow = head;
+  let fast = head;
+
+  // Find meeting point. This will be LOOP_SIZE - k steps into the linked list
+  while (fast !== null && fast.next !== null){
+    slow = slow.next;
+    fast = fast.next.next;
+    // Collision
+    if (slow === fast){
+      break;
+    }
+  }
+  // Error check - no meeting point, and therefore no loop
+  if (fast === null || fast.next === null){
+    return null;
+  }
+  // Move slow to Head. Keep fast at Meeting Point. Each are k steps from
+  // the Loop Start. If they move at the same pace, they must meet at Loop
+  // Start.
+  slow = head;
+  while (slow !== fast){
+    slow = slow.next;
+    fast = fast.next;
+  }
+
+  // Both now point to the start of the loop.
+  return fast;
+}
+
+console.log(FindBeginning(test2))
