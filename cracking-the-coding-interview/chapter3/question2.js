@@ -2,6 +2,10 @@
 Stack Min: How would you design a stack which, in addition to push and pop,
 has a function min which returns the minimum element? Push, pop and min 
 should all operate in O(1) time.
+
+NOTE: Stack does not store actual values inserted, but the minimum value
+will be stored by the minEle variable
+
 */
 
 console.log("-------Approach 1 (website)---------");
@@ -59,7 +63,6 @@ class MyStack {
     }
   }
 
-  
   push(x) {
     // Insert new number into the stack
     if (this.s.length === 0) {
@@ -93,3 +96,71 @@ s.pop();
 s.getMin();
 s.pop();
 s.peek();
+
+console.log("----------Approach 2 (website) -----------");
+/*
+To solve the problem follow the below idea:
+Create a class node that has two variables Val and min. Val will store
+the actual value that we are going to insert in the stack, whereas min
+will store the min value so far seen up to that node
+*/
+
+function mini(a, b) {
+  return a > b ? b : a;
+}
+
+class MinStack {
+  constructor() {
+    this.s = new Array();
+  }
+
+  pushE(element) {
+    /*
+    New max will be given no. if stack is empty else we 
+    compare given no. to max at current top of stack
+    */
+
+    let new_min = 0;
+    if (this.s.length === 0) {
+      new_min = element;
+    } else {
+      new_min = mini(element, this.s[this.s.length - 1].second);
+    }
+
+    // We push the pair of given_element, new_min in s
+    this.s.push({
+      first: element,
+      second: new_min,
+    });
+  }
+
+  popE() {
+    let popped;
+    if (this.s.length > 0) {
+      // popped has popped number
+      popped = this.s[this.s.length - 1].first;
+      this.s.pop();
+    } else {
+      // print a message or throw exception etc
+    }
+    return popped;
+  }
+
+  minimum() {
+    let min_elem = this.s[this.s.length - 1].second;
+    return min_elem;
+  }
+}
+
+// Driver code
+let test2 = new MinStack();
+
+// Function calls
+test2.pushE(-1);
+test2.pushE(10);
+test2.pushE(-4);
+test2.pushE(0);
+console.log(test2.minimum());
+console.log(test2.popE());
+console.log(test2.popE());
+console.log(test2.minimum());
