@@ -36,9 +36,10 @@ class StackOfPlates {
     this.getLastStack().push(element);
   }
   pop() {
-    let lastStack = this.getLastStack;
-    let element = lastStack().pop();
-    if (lastStack().length === 0 && lastStack().length >= 1) {
+    let lastStack = this.getLastStack();
+    let element = this.getLastStack().pop();
+    console.log(this.getLastStack().length);
+    if (this.getLastStack().length === 0) {
       this.storage.pop();
     }
     return element;
@@ -48,23 +49,54 @@ class StackOfPlates {
     let count = 0;
 
     for (let i = 0; i < this.storage.length; i++) {
-      count++;
-
       for (let j = 0; j < this.storage[i].length; j++) {
+        count++;
         if (count === position) {
           let next;
-          let lastElement = count();
-          if (this.storage[i][j+1] && position < lastElement){
-            next = this.storage[i][j+1];
-          }else if(){
-            
+          let lastElement = count;
+          if (this.storage[i][j + 1] && position < lastElement) {
+            next = this.storage[i][j + 1];
+          } else if (!this.storage[i][j + 1] && position !== lastElement) {
+            next = this.storage[i + 1][0];
           }
+          this.storage[i].splice(j, 1, next);
         }
       }
     }
   }
+
+  peek() {
+    return this.getLastStack()[this.getLastStack().length - 1];
+  }
+
+  // Counts the total individual elements present in the stack
+  count() {
+    let m = this.storage.length - 1; // Number of rows -1
+    let n = 0;
+    let remainder = 0;
+    if (m > 1) {
+      n = this.storage[this.storage.length - 2].length;
+    }
+    remainder = this.getLastStack().length;
+    return m * n + remainder;
+  }
 }
 
-let test1 = new StackOfPlates();
-let test2 = new StackOfPlates(5);
+let test1 = new StackOfPlates(); // Error case
+let test2 = new StackOfPlates(3);
+test2.push(1);
+test2.push(2);
+test2.push(3);
+test2.push(4);
 console.log(test2);
+test2.pop();
+console.log("Stack after pop: ", test2);
+console.log("peek:", test2.peek());
+console.log("count: ", test2.count());
+test2.push(4);
+test2.push(5);
+test2.push(6);
+test2.push(7);
+console.log(test2);
+test2.popAt(4)
+console.log("Stack after popAt(4)", test2)
