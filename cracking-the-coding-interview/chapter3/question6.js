@@ -29,12 +29,52 @@ class myAttempt {
   enqueue(animal) {
     // Store dog in dog queue and cat in cat queue with order as timestamp
     // Increment order by 1
+    if (animal.type !== "dog" && animal.type !== "cat") {
+      return console.log("please queue only 'dog' or 'cat'");
+    }
+    animal.order = this.order;
     if (animal.type === "dog") {
-      animal.order = this.order;
       this.dogQueue.push(animal);
     }
-
+    if (animal.type === "cat") {
+      this.catQueue.push(animal);
+    }
     this.order++;
+  }
+
+  dequeueAny() {
+    if (this.catQueue.length === 0 && this.dogQueue.length === 0) {
+      return console.log("Animal shelter is empty");
+    }
+
+    if (this.catQueue.length === 0) {
+      return this.dogQueue.shift();
+    }
+
+    if (this.dogQueue.length === 0) {
+      return this.catQueue.shift();
+    }
+
+    if (this.dogQueue[0].order > this.catQueue[0].order) {
+      return this.catQueue.shift();
+    } else {
+      return this.dogQueue[0].shift();
+    }
+  }
+
+  dequeueDog() {
+    if (this.dogQueue.length === 0) {
+      return console.log("Dog queue is empty");
+    }
+    let firstElement = this.dogQueue.shift();
+    return firstElement;
+  }
+  dequeueCat() {
+    if (this.catQueue.length === 0) {
+      return console.log("Cat queue is empty");
+    }
+    let firstCatElement = this.catQueue.shift();
+    return firstCatElement;
   }
 }
 
@@ -43,4 +83,10 @@ let testAnimal = new myAnimal("John", "dog");
 test.enqueue(testAnimal);
 let testAnimal2 = new myAnimal("Jason", "dog");
 test.enqueue(testAnimal2);
+let testAnimal3 = new myAnimal("Kat", "cat");
+test.enqueue(testAnimal3);
 console.log(test);
+// test.dequeueDog();
+// test.dequeueAny();
+// test.dequeueCat();
+console.log("End: ", test);
