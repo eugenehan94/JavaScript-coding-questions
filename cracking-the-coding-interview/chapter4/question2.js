@@ -4,65 +4,68 @@ integer elements, write an algorithm to create a binary search tree
 with minimal height
 */
 
-class Node {
+console.log("--------------Solution 1 --------------------");
+// Define a TreeNode class to represent a node in the Binary
+// Search Tree (BST)
+// Time complexity of this algorithm is O(n)
+class TreeNode {
   constructor(value) {
+    // The value of the node
     this.value = value;
+    // Pointer to the left child node
     this.left = null;
+    // Pointer to the right child node
     this.right = null;
   }
 }
 
-function myAttempt(test) {
-  // binary search tree - all left descendents are less than primary node
-  // and all right descendents are more than primary node. Each node has
-  // 0 or 2 children.
-
-  // Approach:
-  // find mid point and assign as main/primary node of binary search tree
-  // (even and odd arrays). Remove selected value from array.
-  // Perform the same steps but with two halves of the initial array.
-
-  if (test === null) {
-    return console.log("array is empty");
+// Function to convert a sorted array to a Binary Search Tree (BST)
+function sortedArrayToBST(arr) {
+  // If the array is empty return null
+  if (!arr.length) {
+    return null;
   }
-
-  let mid = Math.floor((test.length - 1) / 2);
-  const primaryNode = new Node(test[mid]);
-  let left = test.slice(0, mid).reverse();
-  let right = test.slice(mid + 1, test.lenth);
-
-  let leftBranch;
-  for (let i = 0; i < left.length; i++) {
-    const newNode = new Node(left[i]);
-
-    if (leftBranch === undefined) {
-      leftBranch = newNode;
-    } else {
-      leftBranch.left = newNode;
-    }
-  }
-  // Attach the left branch to initial node, add to left side
-  primaryNode.left = leftBranch;
-
-  let rightBranch;
-  for (let i = 0; i < right.length; i++) {
-    const newNode = new Node(right[i]);
-    if (rightBranch === undefined) {
-      rightBranch = newNode;
-    } else {
-      // console.log("new Node: ", right[i]);
-      console.log("right branch:", rightBranch);
-      rightBranch.right = newNode;
-      rightBranch = newNode;
-    }
-  }
-
-  console.log("right branch: outside: ", rightBranch);
-  primaryNode.right = rightBranch;
-  return primaryNode;
+  // Call the helper function to construct the BST and return
+  // the root of the BST
+  return constructBST(arr, 0, arr.length - 1);
 }
 
-let test = [1, 3, 5, 7, 10, 12];
-let test2 = [1, 3, 7, 10, 12];
+// Helper function to construct the BST from the sorted array
+function constructBST(arr, start, end) {
+  // Base case: if start index is greater than end index, return null
+  if (start > end) {
+    return null;
+  }
+  // Calculate the middle index of the array
+  let mid = Math.floor((start + end) / 2);
+  // Create a new TreeNode with the middle element as the value
+  let node = new TreeNode(arr[mid]);
 
-console.log(myAttempt(test));
+  // Recursively construct the left subtree using the left half of the array
+  node.left = constructBST(arr, start, mid - 1);
+  // Recursively construct the right subtree using the right half of the array
+  node.right = constructBST(arr, mid + 1, end);
+
+  // Return the constructed node
+  return node;
+}
+
+// Example usage:
+let sortedArray = [1, 2, 3, 4, 5, 6, 7];
+// Convert the sorted array to a BST and get the root of the BST
+let root = sortedArrayToBST(sortedArray);
+
+// Helper function to print the tree using in-order traversal
+function inOrderTraversal(root) {
+  if (root !== null) {
+    // Travsere the left subtree
+    inOrderTraversal(root.left);
+    // Pring the value of the current node
+    console.log(root.value);
+    // Traverse the right subtree
+    inOrderTraversal(root.right);
+  }
+}
+
+// Perform in-order traversal on the constructed BST
+inOrderTraversal(root);
